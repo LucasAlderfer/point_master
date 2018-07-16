@@ -25,7 +25,12 @@ context "as an admin" do
     within "#user-id-#{user_1.id}" do
       expect(page).to have_content("Point Count: #{expected_1}")
       click_button "Add Point"
-      expect(page).to have_content("Point Count: #{expected_2}")
+    end
+
+    expect(current_path).to eq(admins_path)
+    
+    within "#user-id-#{user_1.id}" do
+      expect(page).to have_content("Point Count: #{user_1.points.count}")
     end
   end
   it 'can see all users from admins_path' do
