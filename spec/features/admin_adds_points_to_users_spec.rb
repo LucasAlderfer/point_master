@@ -5,7 +5,7 @@ context "as an admin" do
     user_1 = User.create!(name:"bill", email:'anemail', password:'password')
     point_1 = user_1.points.create
     point_2 = user_1.points.create
-    admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
+    admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
     expected_1 = 2
     expected_2 = 3
 
@@ -20,14 +20,14 @@ context "as an admin" do
       click_button "Login"
     end
 
-    visit admins_path
+    visit admin_management_index_path
 
     within "#user-id-#{user_1.id}" do
       expect(page).to have_content("Point Count: #{expected_1}")
       click_button "Add Point"
     end
 
-    expect(current_path).to eq(admins_path)
+    expect(current_path).to eq(admin_management_index_path)
 
     within "#user-id-#{user_1.id}" do
       expect(page).to have_content("Point Count: #{user_1.points.count}")
@@ -40,7 +40,7 @@ context "as an admin" do
     user_2 = User.create!(name:"joe", email:'ojinjk', password:'password')
     point_3 = user_2.points.create
     user_3 = User.create!(name:"james", email:'kndkj', password:'password')
-    admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
+    admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
 
     visit users_path
 
@@ -53,7 +53,7 @@ context "as an admin" do
       click_button "Login"
     end
 
-    visit admins_path
+    visit admin_management_index_path
 
     within "#user-id-#{user_1.id}" do
       expect(page).to have_content("Name: #{user_1.name}")

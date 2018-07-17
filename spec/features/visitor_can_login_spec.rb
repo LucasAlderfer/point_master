@@ -76,7 +76,6 @@ describe "visiting /" do
       expect(page).to_not have_button("My Profile")
     end
     it 'cannot access any admin pages' do
-      admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
       user_1 = User.create(name:'bill', email:'anemail', password:'password')
 
       visit login_path
@@ -92,12 +91,12 @@ describe "visiting /" do
 
       expect(current_path).to eq(users_path)
 
-      visit admins_path
+      visit admin_management_index_path
 
-      expect(current_path).to eq(users_path)
+      expect(page).to have_content "The page you were looking for doesn't exist."
+      expect(page).to_not have_content "Create a New Badge"
     end
     it "can see user's points on it's home page" do
-      admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
       user_1 = User.create(name:'bill', email:'anemail', password:'password')
       point_1 = user_1.points.create
       point_2 = user_1.points.create
@@ -114,6 +113,17 @@ describe "visiting /" do
       end
 
       expect(page).to have_content("Points: #{expected}")
+    end
+    it "can see user's badges on it's home page" do
+      user_1 = User.create(name:'bill', email:'anemail', password:'password')
+      badge_1 = Badge.create(title:'tester')
+      user_1.user_badges.create(badge: badge_1)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+      visit user_path(user_1)
+
+      expect(page).to have_content("Badges: #{user_1.badge_display}")
     end
   end
 end

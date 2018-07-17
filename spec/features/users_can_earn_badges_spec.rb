@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'as an admin' do
   it 'can create a new badge' do
-    admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
+    admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
 
     visit '/'
 
@@ -15,7 +15,7 @@ describe 'as an admin' do
       click_button "Login"
     end
 
-    visit admins_path
+    visit admin_management_index_path
 
     click_button "Create a New Badge"
 
@@ -25,7 +25,7 @@ describe 'as an admin' do
 
     click_button 'Create Badge'
 
-    expect(current_path).to eq admins_path
+    expect(current_path).to eq admin_management_index_path
     expect(page).to have_content("New Badge Added!")
   end
 end
@@ -35,7 +35,7 @@ describe "as a user" do
     user_1 = User.create(name:"bill", email:'anemail', password:'password')
     point_1 = user_1.points.create
     point_2 = user_1.points.create
-    admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
+    admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
     badge = Badge.create(title:'tester')
 
     visit users_path
@@ -49,7 +49,7 @@ describe "as a user" do
       click_button "Login"
     end
 
-    visit admins_path
+    visit admin_management_index_path
 
     within "#user-id-#{user_1.id}" do
       expect(page).to have_content("Badges: None")

@@ -11,13 +11,15 @@
   <body>
     <nav id="nav-bar">
       <ul>
-        <% if @admin == true %>
-        <li><%= link_to "Home", admins_path, method: :get %></li>
-        <% else %>
-        <li><%= link_to "Home", users_path, method: :get %></li>
+        <% unless current_user.nil? %>
+          <% if current_user.admin? %>
+            <li><%= link_to "Home", admin_management_index_path, method: :get %></li>
+          <% else %>
+            <li><%= link_to "Home", users_path, method: :get %></li>
+          <% end %>
         <% end %>
-        <% unless @current_user.nil? %>
-          <li><%= link_to "My Profile", user_path(@current_user), method: :get %></li>
+        <% unless current_user.nil? %>
+          <li><%= link_to "My Profile", user_path(current_user), method: :get %></li>
         <% end %>
         <li><%= link_to "Login", login_path, method: :get %></li>
         <li><%= link_to "Logout", logout_path, method: :delete %></li>

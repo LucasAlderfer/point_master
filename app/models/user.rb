@@ -5,10 +5,16 @@ class User < ApplicationRecord
   has_many :user_badges
   has_many :badges, through: :user_badges
 
+  enum role: ['default', 'admin']
+
   has_secure_password
 
   def point_count
     points.count
+  end
+
+  def badge_display
+    badges.pluck(:title).join(', ')
   end
 
 end

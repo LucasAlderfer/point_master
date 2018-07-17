@@ -10,6 +10,9 @@
   <section id=<%="user-id-#{user.id}"%>>
     <p>Name: <%= user.name %></p>
     <p>Email: <%= user.email %></p>
+    <% if user.admin? %>
+      <p>Admin Account</p>
+    <% end %>
     <div>
       <p>Point Count: <%= user.point_count %></p>
       <%= button_to "Add Point", "/users/#{user.id}/add_point", method: :get %>

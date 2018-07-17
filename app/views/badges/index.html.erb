@@ -1,0 +1,21 @@
+<% flash.each do |key, value| %>
+ <%= content_tag(:div, class: "alert alert-#{key} alert-dismissable") do %>
+  <%= value %>
+ <% end %>
+<% end %>
+
+<h2>Current Points: <%= current_user.point_count %></h2>
+
+<% @badges.each do |badge| %>
+  <ul id=<%="badge-#{badge.title}"%>>
+    <li>Badge: <%= badge.title %></li>
+    <li>Value: <%= badge.value %></li>
+    <li>
+      <%= form_tag buy_badge_path do %>
+        <%= hidden_field_tag :user_id, current_user.id %>
+        <%= hidden_field_tag :badge_id, badge.id %>
+        <%= submit_tag "Buy Badge" %>
+      <% end %>
+    </li>
+  </ul>
+<% end %>

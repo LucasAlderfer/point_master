@@ -1,16 +1,13 @@
 class UsersController < ApplicationController
+  before_action :current_user
 
   def index
-    set_admin
-    current_user
   end
 
   def show
-    set_admin
-    @user = User.find(params[:id])
   end
 
-  def registration
+  def new
     @user = User.new
   end
 
@@ -21,7 +18,7 @@ class UsersController < ApplicationController
       redirect_to user_path(@user)
     else
       flash[:error] = "All fields are required! No duplicate accounts allowed!"
-      redirect_to users_registration_path
+      redirect_to new_user_path
     end
   end
 

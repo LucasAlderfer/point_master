@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :set_admin, :current_user
+  helper_method :current_user
 
   def current_user
     unless session[:user_id].nil?
@@ -8,7 +8,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_admin
-    @admin = true if session[:admin] == true
+  def current_admin?
+    current_user && current_user.admin?
+  end
+
+  def require_admin
+    render file:'/public/404' unless current_admin?
   end
 end

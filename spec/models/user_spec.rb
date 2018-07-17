@@ -24,6 +24,20 @@ describe User do
       expect(user_2).to_not be_valid
     end
   end
+  describe 'roles' do
+    it 'can be created as an Admin' do
+      user = User.create(name:'admin', email:'testemail', password:'adminspassword', role: 1)
+
+      expect(user.role).to eq('admin')
+      expect(user.admin?).to be_truthy
+    end
+    it 'can be created as a default user' do
+      user = User.create(name:'default', email:'testemail', password:'userspassword')
+
+      expect(user.role).to eq('default')
+      expect(user.default?).to be_truthy
+    end
+  end
   describe "relationships" do
     it "has many points" do
       user = User.create!(name:"bill", email:'anemail', password:'password')
@@ -48,6 +62,16 @@ describe User do
       expected = user_1.points.count
 
       expect(user_1.point_count).to eq expected
+    end
+    it 'can display its badges' do
+      user_1 = User.create!(name:"bill", email:'anemail', password:'password')
+      badge_1 = Badge.create(title:'tester')
+      user_1.user_badges.create(badge: badge_1)
+      badge_2 = Badge.create(title:'spender')
+      user_1.user_badges.create(badge: badge_2)
+      expected = "tester, spender"
+
+      expect(user_1.badge_display).to eq expected
     end
   end
 end

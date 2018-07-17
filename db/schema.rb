@@ -10,16 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180716215952) do
+ActiveRecord::Schema.define(version: 20180717172900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "admins", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-  end
 
   create_table "badges", force: :cascade do |t|
     t.string "title"
@@ -48,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180716215952) do
     t.string "name"
     t.string "email"
     t.string "password_digest"
+    t.integer "role", default: 0
   end
 
   add_foreign_key "points", "users"

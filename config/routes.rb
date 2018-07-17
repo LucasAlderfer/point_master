@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/users/registration' => 'users#registration'
+  # get '/users/registration' => 'users#registration'
   resources :users do
     resources :user_badges, only: [:create]
   end
@@ -10,10 +10,16 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  get '/users/:id/add_point' => 'admins#add_point'
+  # get '/users/:id/add_point' => 'admins#add_point'
 
-  resources :admins
+  namespace :admin do
+    resources :management, only: [:index]
+  end
 
-  resources :badges, only: [:new, :create]
+  get '/users/:id/add_point' => 'admin/management#add_point'
+
+  resources :badges, only: [:new, :create, :index]
+  get '/badge-store' => 'badges#index'
+  post '/buy-badge' => 'user_badges#buy'
 
 end

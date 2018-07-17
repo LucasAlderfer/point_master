@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "visiting /" do
   context "as an admin" do
     it "can access the login page and log in" do
-      admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
+      admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
       visit users_path
 
       click_link "Login"
@@ -15,10 +15,10 @@ describe "visiting /" do
         click_button "Login"
       end
 
-      expect(current_path).to eq(admins_path)
+      expect(current_path).to eq(admin_management_index_path)
     end
     it 'can access the admin home page by clicking the Home link' do
-      admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
+      admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
       visit users_path
 
       click_link "Login"
@@ -36,7 +36,7 @@ describe "visiting /" do
 
       click_link "Home"
 
-      expect(current_path).to eq(admins_path)
+      expect(current_path).to eq(admin_management_index_path)
     end
   end
 end

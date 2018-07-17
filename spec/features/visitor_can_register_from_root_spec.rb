@@ -7,7 +7,7 @@ describe "visiting /" do
 
       click_button "New User"
 
-      expect(current_path).to eq users_registration_path
+      expect(current_path).to eq new_user_path
 
       fill_in :user_name, with: "new_user"
       fill_in :user_email, with: "email@email.test"
@@ -31,7 +31,7 @@ describe "visiting /" do
 
       click_button "Create User"
 
-      expect(current_path).to eq users_registration_path
+      expect(current_path).to eq new_user_path
       expect(page).to have_content("All fields are required! No duplicate accounts allowed!")
     end
   end
