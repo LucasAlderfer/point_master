@@ -39,18 +39,6 @@ describe User do
       expect(user).to respond_to(:badges)
     end
   end
-  describe 'class methods' do
-    it 'can authenticate members' do
-      user = User.create!(name:"bill", email:'anemail', password:'password')
-      auth = User.authenticate('anemail', 'password')
-      expect(auth).to eq(user)
-    end
-    it "won't authenticate non-members" do
-      user = User.create!(name:"bill", email:'anemail', password:'password')
-      auth = User.authenticate('anemail', 'password_1')
-      expect(auth).to eq(nil)
-    end
-  end
   describe 'instance methods' do
     it 'can count its points' do
       user_1 = User.create!(name:"bill", email:'anemail', password:'password')

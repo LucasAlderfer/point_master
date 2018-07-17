@@ -1,33 +1,28 @@
 class SessionsController < ApplicationController
 
-  def login
+  def new
   end
 
-  def authenticate
-    user = User.authenticate(params[:email], params[:password])
-    admin = Admin.authenticate(params[:email], params[:password])
-    if user.nil? && admin.nil?
-      flash.now[:notice] = "Sorry that email and password combination is invalid"
-      render :login
-    elsif admin.nil?
-      session[:current_user_id] = user.id
-      redirect_to user_path(user)
-    elsif !admin.nil?
+  def create
+    @user = User.find_by_email(params[:email])
+    @admin = Admin.find_by_email(params[:email])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
+    elsif @admin && @admin.authenticate(params[:password])
       session[:admin] = true
       redirect_to admins_path
+    else
+      flash.now[:notice] = "Sorry that email and password combination is invalid"
+      render :new
     end
   end
 
   def destroy
-    session[:current_user_id] = nil
+    session[:user_id] = nil
+    session[:admin] = nil
     flash[:notice] = 'You have been logged out!'
     redirect_to users_path
   end
-
-  private
-
-  # def login_params
-  #   params.require(:email).require(:password).permit(:email, :password)
-  # end
 
 end

@@ -24,16 +24,4 @@ describe Admin do
       expect(admin_2).to_not be_valid
     end
   end
-  describe 'class methods' do
-    it 'can authenticate members' do
-      admin_1 = Admin.create!(name:"bill", email:'anemail', password:'password')
-      auth = Admin.authenticate('anemail', 'password')
-      expect(auth).to eq(admin_1)
-    end
-    it "won't authenticate non-members" do
-      admin_1 = Admin.create!(name:"bill", email:'anemail', password:'password')
-      auth = Admin.authenticate('anemail', 'password_1')
-      expect(auth).to eq(nil)
-    end
-  end
 end

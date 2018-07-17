@@ -6,6 +6,7 @@ class AdminsController < ApplicationController
       redirect_to users_path
     end
     @users = User.all
+    @user_badge = UserBadge.new
   end
 
   def add_point
@@ -14,7 +15,6 @@ class AdminsController < ApplicationController
       redirect_to users_path
     end
     user = User.find(params[:id])
-    # require 'pry';binding.pry
     user.points.create
     redirect_to admins_path
   end

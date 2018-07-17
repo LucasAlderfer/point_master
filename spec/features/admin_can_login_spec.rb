@@ -6,7 +6,7 @@ describe "visiting /" do
       admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
       visit users_path
 
-      click_button "Login"
+      click_link "Login"
 
       fill_in :email, with: 'an@email'
       fill_in :password, with: 'password_2'
@@ -21,7 +21,7 @@ describe "visiting /" do
       admin = Admin.create(name:'billy', email:'an@email', password:'password_2')
       visit users_path
 
-      click_button "Login"
+      click_link "Login"
 
       fill_in :email, with: 'an@email'
       fill_in :password, with: 'password_2'
@@ -34,7 +34,7 @@ describe "visiting /" do
 
       expect(current_path).to eq(users_path)
 
-      click_button "Home"
+      click_link "Home"
 
       expect(current_path).to eq(admins_path)
     end

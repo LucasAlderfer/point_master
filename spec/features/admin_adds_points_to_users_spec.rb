@@ -11,7 +11,7 @@ context "as an admin" do
 
     visit users_path
 
-    click_button "Login"
+    click_link "Login"
 
     fill_in :email, with: 'an@email'
     fill_in :password, with: 'password_2'
@@ -28,7 +28,7 @@ context "as an admin" do
     end
 
     expect(current_path).to eq(admins_path)
-    
+
     within "#user-id-#{user_1.id}" do
       expect(page).to have_content("Point Count: #{user_1.points.count}")
     end
@@ -44,7 +44,7 @@ context "as an admin" do
 
     visit users_path
 
-    click_button "Login"
+    click_link "Login"
 
     fill_in :email, with: 'an@email'
     fill_in :password, with: 'password_2'

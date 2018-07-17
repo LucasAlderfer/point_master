@@ -2,9 +2,7 @@ class UsersController < ApplicationController
 
   def index
     set_admin
-    unless session[:current_user_id].nil?
-      @user = User.find(session[:current_user_id])
-    end
+    current_user
   end
 
   def show
@@ -19,6 +17,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
+      session[:user_id] = @user.id
       redirect_to user_path(@user)
     else
       flash[:error] = "All fields are required! No duplicate accounts allowed!"

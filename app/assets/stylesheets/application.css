@@ -13,20 +13,26 @@
  *= require_tree .
  *= require_self
  */
-#nav-bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+#nav-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
   background-color: #515F90;
 }
 
-#nav-bar input {
-  margin: 2vw;
-  margin-left: 5vw;
-  margin-right: 5vw;
+#nav-bar li {
+  float: left;
 }
 
-#nav-bar input:hover {
-  background-color: #437983;
+#nav-bar a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 18px 20px;
+  text-decoration: none;
+}
+
+#nav-bar a:hover {
+  background-color: #162756;
 }

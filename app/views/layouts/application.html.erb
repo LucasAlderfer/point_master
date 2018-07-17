@@ -10,18 +10,18 @@
 
   <body>
     <nav id="nav-bar">
-      <% if @admin == true %>
-      <p><%= button_to "Home", admins_path, method: :get %></p>
-      <% else %>
-      <p><%= button_to "Home", users_path, method: :get %></p>
-      <% end %>
-      <% unless @user.nil? %>
-        <% unless @user.id.nil? %>
-          <p><%= button_to "My Profile", user_path(@user), method: :get %></p>
+      <ul>
+        <% if @admin == true %>
+        <li><%= link_to "Home", admins_path, method: :get %></li>
+        <% else %>
+        <li><%= link_to "Home", users_path, method: :get %></li>
         <% end %>
-      <% end %>
-      <p><%= button_to "Login", login_path, method: :get %></p>
-      <p><%= button_to "Logout", logout_path, method: :delete %></p>
+        <% unless @current_user.nil? %>
+          <li><%= link_to "My Profile", user_path(@current_user), method: :get %></li>
+        <% end %>
+        <li><%= link_to "Login", login_path, method: :get %></li>
+        <li><%= link_to "Logout", logout_path, method: :delete %></li>
+      </ul>
     </nav>
     <%= yield %>
   </body>

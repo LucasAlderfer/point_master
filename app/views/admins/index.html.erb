@@ -1,8 +1,35 @@
+<% flash.each do |key, value| %>
+ <%= content_tag(:div, class: "alert alert-#{key} alert-dismissable") do %>
+  <%= value %>
+ <% end %>
+<% end %>
+
+<%= button_to "Create a New Badge", new_badge_path, method: :get %>
+
 <% @users.each do |user| %>
   <section id=<%="user-id-#{user.id}"%>>
     <p>Name: <%= user.name %></p>
     <p>Email: <%= user.email %></p>
-    <p>Point Count: <%= user.point_count %></p>
-    <%= button_to "Add Point", "/users/#{user.id}/add_point", method: :get %>
+    <div>
+      <p>Point Count: <%= user.point_count %></p>
+      <%= button_to "Add Point", "/users/#{user.id}/add_point", method: :get %>
+    </div>
+    <div>
+      <p>
+        Badges:
+        <% if user.badges.count == 0 %>
+          None
+        <% else %>
+          <% user.badges.each do |badge| %>
+            <%= badge.title %>
+          <% end %>
+        <% end %>
+      </p>
+      <%= form_for [user, @user_badge] do |f| %>
+        <%= f.label :badge_id %>
+        <%= f.collection_select :badge_id, Badge.order(:title),:id,:title, include_blank: true %>
+        <%= f.submit "Add Badge" %>
+      <% end %>
+    </div>
   </section>
 <% end %>

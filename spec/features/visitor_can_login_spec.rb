@@ -6,7 +6,7 @@ describe "visiting /" do
       user_1 = User.create(name:'bill', email:'anemail', password:'password')
       visit users_path
 
-      click_button "Login"
+      click_link "Login"
 
       expect(current_path).to eq(login_path)
 
@@ -46,7 +46,7 @@ describe "visiting /" do
 
       expect(current_path).to eq(user_path(user_1))
       visit users_path
-      click_button "My Profile"
+      click_link "My Profile"
       expect(current_path).to eq(user_path(user_1))
     end
     it "cannot access profile before being logged in" do
@@ -68,7 +68,7 @@ describe "visiting /" do
       end
 
       within '#nav-bar' do
-        click_button "Logout"
+        click_link "Logout"
       end
       expect(page).to have_content("You have been logged out!")
       visit users_path
@@ -88,7 +88,7 @@ describe "visiting /" do
         click_button "Login"
       end
 
-      click_button "Home"
+      click_link "Home"
 
       expect(current_path).to eq(users_path)
 

@@ -18,7 +18,6 @@ describe "visiting /" do
       expect(current_path).to eq user_path(User.last)
       expect(page).to have_content("Name: new_user")
       expect(page).to have_content("Email: email@email.test")
-      expect(page).to have_content("Password: password_12345")
     end
     it "cannot create a duplicate user" do
       user_1 = User.create(name:'bill', email:'anemail', password:'password')
