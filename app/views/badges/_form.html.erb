@@ -1,9 +1,11 @@
-<%= form_for @badge do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+<main class="badge-form">
+  <%= form_for @badge do |f| %>
+    <p><%= f.label :title %>
+    <%= f.text_field :title, required:true %></p>
 
-  <%= f.label :value %>
-  <%= f.number_field :value %>
+    <p><%= f.label :value %>
+    <%= f.number_field :value, required:true %></p>
 
-  <%= f.submit "Create Badge" %>
-<% end %>
+    <p><%= f.submit "Create Badge" %></p>
+  <% end %>
+</main>

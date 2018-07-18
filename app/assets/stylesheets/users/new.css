@@ -1,3 +1,17 @@
+.new-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-form h2 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.new-form p {
+  margin-top:5vh;
+}
+
 input[type=text] {
 
 }
@@ -7,5 +21,22 @@ input[type=password] {
 }
 
 input[type=submit] {
+  padding: 20px 40px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background-color: #515F90;
+  font-family: 'Patua One', cursive;
+}
 
+input[type=submit]:active {
+  background-color: #595594;
+  transform: translateY(2px);
+}
+
+input[type=submit]:hover {
+  background-color: #162756;
 }

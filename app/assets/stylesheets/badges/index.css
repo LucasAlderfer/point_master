@@ -1,14 +1,17 @@
-.user-index p {
-  text-align: center;
-  margin-top: 15vh;
+
+.badge-store {
+  margin-left: 25vw;
+  max-width: 15vw;
 }
 
-.registration-content {
-  text-align: center;
-  margin-top: 5vh;
+.badge-store ul {
+  list-style-type: none;
+  border: 1px solid #E5E5E5;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
 }
 
-.registration-content input[type=submit] {
+.badge-store input[type=submit] {
   padding: 10px 10px;
   font-size: 10px;
   cursor: pointer;
@@ -20,11 +23,11 @@
   font-family: 'Patua One', cursive;
 }
 
-.registration-content input[type=submit]:hover {
+.badge-store input[type=submit]:hover {
   background-color: #162756;
 }
 
-.registration-content input[type=submit]:active {
+.badge-store input[type=submit]:active {
   background-color: #595594;
   transform: translateY(2px);
 }

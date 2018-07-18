@@ -1,49 +1,63 @@
-<h2>Current Points: <%= current_user.point_count %></h2>
 
-<% @badges.each do |badge| %>
-  <ul id=<%="badge-#{badge.title}"%>>
-    <li>
-      <% unless badge.enabled %>
-      <p>Currently Unavailable!</p>
-      <% end %>
-    </li>
-    <li>Badge: <%= badge.title %></li>
-    <li>Value: <%= badge.value %></li>
-    <li>
-      <% if badge.enabled %>
-        <% unless current_user.badges.include?(badge) %>
-          <%= form_tag buy_badge_path do %>
-            <%= hidden_field_tag :user_id, current_user.id %>
-            <%= hidden_field_tag :badge_id, badge.id %>
-            <%= submit_tag "Buy Badge" %>
+<main class="badge-store">
+  <% unless current_user.nil? %>
+    <h2>Current Points: <%= current_user.point_count %></h2>
+  <% end %>
+  <% @badges.each do |badge| %>
+    <ul id=<%="badge-#{badge.title}"%>>
+      <% if current_user.nil? %>
+        <li>
+          <% unless badge.enabled %>
+            <p>Currently Unavailable!</p>
           <% end %>
-        <% else %>
-          <%= form_tag buy_badge_path do %>
-            <%= submit_tag "Buy Badge", disabled: true %>
-          <% end %>
-        <% end %>
+        </li>
+        <li>Badge: <%= badge.title %></li>
+        <li>Value: <%= badge.value %></li>
       <% else %>
-        <%= form_tag buy_badge_path do %>
-          <%= submit_tag "Buy Badge", disabled: true %>
-        <% end %>
+        <li>
+          <% unless badge.enabled %>
+            <p>Currently Unavailable!</p>
+          <% end %>
+        </li>
+        <li>Badge: <%= badge.title %></li>
+        <li>Value: <%= badge.value %></li>
+        <li>
+          <% if badge.enabled %>
+            <% unless current_user.badges.include?(badge) %>
+              <%= form_tag buy_badge_path do %>
+                <%= hidden_field_tag :user_id, current_user.id %>
+                <%= hidden_field_tag :badge_id, badge.id %>
+                <%= submit_tag "Buy Badge" %>
+              <% end %>
+            <% else %>
+              <%= form_tag buy_badge_path do %>
+                <%= submit_tag "Buy Badge", disabled: true %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= form_tag buy_badge_path do %>
+              <%= submit_tag "Buy Badge", disabled: true %>
+            <% end %>
+          <% end %>
+        </li>
+        <li>
+          <% if current_user.admin? %>
+            <%= button_to "Edit", edit_badge_path(badge), method: :get %>
+          <% end %>
+        </li>
+        <li>
+          <% if current_user.admin? && badge.enabled %>
+            <%= button_to "Disable", "/badges/#{badge.id}/enable_badge", method: :get %>
+          <% elsif current_user.admin? %>
+            <%= button_to "Enable", "/badges/#{badge.id}/enable_badge", method: :get %>
+          <% end %>
+        </li>
+        <li>
+          <% if current_user.admin? %>
+            <%= button_to "Delete Badge", "/badges/#{badge.id}", method: :delete %>
+          <% end %>
+        </li>
       <% end %>
-    </li>
-    <li>
-      <% if current_user.admin? %>
-        <%= button_to "Edit", edit_badge_path(badge), method: :get %>
-      <% end %>
-    </li>
-    <li>
-      <% if current_user.admin? && badge.enabled %>
-        <%= button_to "Disable", "/badges/#{badge.id}/enable_badge", method: :get %>
-      <% elsif current_user.admin? %>
-        <%= button_to "Enable", "/badges/#{badge.id}/enable_badge", method: :get %>
-      <% end %>
-    </li>
-    <li>
-      <% if current_user.admin? %>
-        <%= button_to "Delete Badge", "/badges/#{badge.id}", method: :delete %>
-      <% end %>
-    </li>
-  </ul>
-<% end %>
+    </ul>
+  <% end %>
+</main>

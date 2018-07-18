@@ -32,6 +32,9 @@
             <%= link_to "Logout", logout_path, method: :delete %>
           <% end %>
         </li>
+        <li>
+          <%= link_to "Badge Store", badge_store_path, method: :get %>
+        </li>
       </ul>
     </nav>
     <% flash.each do |key, value| %>

@@ -2,7 +2,7 @@ class BadgesController < ApplicationController
 
   def new
     require_admin
-    @badge = Badge.new()
+    @badge = Badge.new
   end
 
   def create
