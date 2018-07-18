@@ -16,9 +16,10 @@ Rails.application.routes.draw do
   end
 
   get '/users/:id/add_point' => 'admin/management#add_point'
+  get '/badges/:id/enable_badge' => 'admin/management#enable_badge'
   post '/remove_points' => 'admin/management#remove_points'
 
-  resources :badges, only: [:new, :create, :index]
+  resources :badges
   get '/badge-store' => 'badges#index'
   post '/buy-badge' => 'user_badges#buy'
 end

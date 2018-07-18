@@ -1,9 +1,3 @@
-<% flash.each do |key, value| %>
- <%= content_tag(:div, class: "alert alert-#{key} alert-dismissable") do %>
-  <%= value %>
- <% end %>
-<% end %>
-
 <%= button_to "Create a New Badge", new_badge_path, method: :get %>
 
 <% @users.each do |user| %>

@@ -16,4 +16,10 @@ class Admin::ManagementController < Admin::BaseController
     removing_user.delete_points(params[:remove_points].to_i)
     redirect_to admin_management_index_path
   end
+
+  def enable_badge
+    badge = Badge.find(params[:id])
+    badge.enable_badge
+    redirect_to badges_path
+  end
 end

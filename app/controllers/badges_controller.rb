@@ -17,8 +17,34 @@ class BadgesController < ApplicationController
     end
   end
 
+  def edit
+    require_admin
+    @badge = Badge.find(params[:id])
+  end
+
+  def update
+    require_admin
+    @badge = Badge.find(params[:id])
+    @badge.update(badge_params)
+    if @badge.save
+      flash[:success] = "You updated #{@badge.title}"
+      redirect_to badges_path
+    else
+      flash[:notice] = "Badge Update Could Not be Saved!"
+      render :edit
+    end
+  end
+
   def index
     @badges = Badge.all
+  end
+
+  def destroy
+    badge = Badge.find(params[:id])
+    title = badge.title
+    Badge.find(params[:id]).destroy
+    flash[:success] = "You deleted #{title} badge!"
+    redirect_to badges_path
   end
 
   private

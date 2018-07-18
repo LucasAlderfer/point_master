@@ -23,4 +23,17 @@ describe Badge do
       expect(badge).to respond_to(:users)
     end
   end
+
+  describe 'instance method' do
+    it "can be disabled" do
+      badge = Badge.create(title:'title')
+      badge.enable_badge
+      expect(badge.enabled).to eq false
+    end
+    it "can be enabled" do
+      badge = Badge.create(title:'title', enabled: false)
+      badge.enable_badge
+      expect(badge.enabled).to eq true
+    end
+  end
 end
