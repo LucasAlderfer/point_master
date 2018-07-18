@@ -25,6 +25,10 @@
   float: left;
 }
 
+#nav-bar li:first-child {
+  margin-left: 10vw;
+}
+
 #nav-bar a {
   display: block;
   color: white;
@@ -35,4 +39,13 @@
 
 #nav-bar a:hover {
   background-color: #162756;
+}
+
+#nav-bar a:active {
+  background-color: #7986AC;
+}
+
+body {
+  background-color: #FFFFF3;
+  font-family: 'Patua One', cursive;
 }

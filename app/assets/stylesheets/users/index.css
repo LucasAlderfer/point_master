@@ -1,0 +1,30 @@
+p {
+  text-align: center;
+  margin-top: 15vh;
+}
+
+.registration-content {
+  text-align: center;
+  margin-top: 5vh;
+}
+
+.registration-content input[type=submit] {
+  padding: 10px 10px;
+  font-size: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background-color: #515F90;
+  font-family: 'Patua One', cursive;
+}
+
+.registration-content input[type=submit]:hover {
+  background-color: #162756;
+}
+
+.registration-content input[type=submit]:active {
+  background-color: #595594;
+  transform: translateY(2px);
+}

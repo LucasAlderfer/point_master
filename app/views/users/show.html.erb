@@ -1,15 +1,19 @@
-<h1>Name: <%= current_user.name %></h1>
+<main class='profile-page'>
+  <h1>Name: <%= current_user.name %></h1>
 
-<% if current_user.admin? %>
-  <h2>Admin Account</h2>
-<% end %>
+  <% if current_user.admin? %>
+    <h2>Admin Account</h2>
+  <% end %>
 
-<h2>Email: <%= current_user.email %></h2>
+  <h2>Email: <%= current_user.email %></h2>
 
-<p>Current Points: <%= current_user.point_count %></p>
+  <p>Current Points: <%= current_user.point_count %></p>
 
-<p>Badges: <%= current_user.badge_display %></p>
+  <p>Badges: <%= current_user.badge_display %></p>
 
-<p>Point History:</p>
-<p>Total Points Earned: <%= current_user.total_point_count %></p>
-<p>Points Spent: <%= current_user.spent_points %></p>
+  <section class="point-history">
+    <p>Point History:</p>
+    <p>Total Points Earned: <%= current_user.total_point_count %></p>
+    <p>Points Spent: <%= current_user.spent_points %></p>
+  </section>
+</main>

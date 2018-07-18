@@ -1,0 +1,44 @@
+.users-section {
+  max-width: 70vw;
+  margin-left: 20vw;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  column-count: 2;
+
+  -webkit-column-gap: 10vw;
+  -moz-column-gap: 10vw;
+  column-gap: 10vw;
+}
+
+.management-index section {
+  display: inline-block;
+  margin-top: 2vh;
+  border: 2px solid black;
+  padding: 15px 15px;
+}
+
+.management-index #new-badge {
+  margin-top: 3vw;
+  margin-left: 20vw;
+}
+
+.management-index input[type=submit] {
+  padding: 10px 10px;
+  font-size: 10px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background-color: #515F90;
+  font-family: 'Patua One', cursive;
+}
+
+.management-index input[type=submit]:hover {
+  background-color: #162756;
+}
+
+.management-index input[type=submit]:active {
+  background-color: #595594;
+  transform: translateY(2px);
+}

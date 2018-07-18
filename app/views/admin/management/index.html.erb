@@ -1,38 +1,42 @@
-<%= button_to "Create a New Badge", new_badge_path, method: :get %>
 
-<% @users.each do |user| %>
-  <section id=<%="user-id-#{user.id}"%>>
-    <p>Name: <%= user.name %></p>
-    <p>Email: <%= user.email %></p>
-    <% if user.admin? %>
-      <p>Admin Account</p>
-    <% end %>
-    <div>
-      <p>Point Count: <%= user.point_count %></p>
-      <%= button_to "Add Point", "/users/#{user.id}/add_point", method: :get %>
-      <%= form_tag remove_points_path do %>
-        <%= label_tag :remove_points %>
-        <%= number_field_tag :remove_points %>
-        <%= hidden_field_tag :edit_user_id, user.id %>
-        <%= submit_tag "Remove Points" %>
+<main class="management-index">
+  <%= button_to "Create a New Badge", new_badge_path, id:"new-badge", method: :get %>
+  <div class="users-section">
+  <% @users.each do |user| %>
+    <section id=<%="user-id-#{user.id}"%>>
+      <p>Name: <%= user.name %></p>
+      <p>Email: <%= user.email %></p>
+      <% if user.admin? %>
+        <p>Admin Account</p>
       <% end %>
-    </div>
-    <div>
-      <p>
-        Badges:
-        <% if user.badges.count == 0 %>
-          None
-        <% else %>
-          <% user.badges.each do |badge| %>
-            <%= badge.title %>
-          <% end %>
+      <div>
+        <p>Point Count: <%= user.point_count %></p>
+        <%= button_to "Add Point", "/users/#{user.id}/add_point", method: :get %>
+        <%= form_tag remove_points_path do %>
+          <%= label_tag :remove_points %>
+          <%= number_field_tag :remove_points %>
+          <%= hidden_field_tag :edit_user_id, user.id %>
+          <%= submit_tag "Remove Points" %>
         <% end %>
-      </p>
-      <%= form_for [user, @user_badge] do |f| %>
-        <%= f.label :badge_id %>
-        <%= f.collection_select :badge_id, Badge.order(:title),:id,:title, include_blank: true %>
-        <%= f.submit "Add Badge" %>
-      <% end %>
-    </div>
-  </section>
-<% end %>
+      </div>
+      <div>
+        <p>
+          Badges:
+          <% if user.badges.count == 0 %>
+            None
+          <% else %>
+            <% user.badges.each do |badge| %>
+              <%= badge.title %>
+            <% end %>
+          <% end %>
+        </p>
+        <%= form_for [user, @user_badge] do |f| %>
+          <%= f.label :badge_id %>
+          <%= f.collection_select :badge_id, Badge.order(:title),:id,:title, include_blank: true %>
+          <%= f.submit "Add Badge" %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+  </div>
+</main>
