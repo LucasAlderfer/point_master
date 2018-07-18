@@ -96,23 +96,50 @@ describe "visiting /" do
       expect(page).to have_content "The page you were looking for doesn't exist."
       expect(page).to_not have_content "Create a New Badge"
     end
-    it "can see user's points on it's home page" do
+    it "can see user's active points on it's home page" do
       user_1 = User.create(name:'bill', email:'anemail', password:'password')
       point_1 = user_1.points.create
       point_2 = user_1.points.create
       point_3 = user_1.points.create
       expected = 3
 
-      visit login_path
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
 
-      fill_in :email, with: user_1.email
-      fill_in :password, with: user_1.password
+      visit user_path(user_1)
 
-      within '#login-form' do
-        click_button "Login"
-      end
+      expect(page).to have_content("Current Points: #{expected}")
+    end
+    it "can see user's total erned points on it's home page" do
+      user_1 = User.create(name:'bill', email:'anemail', password:'password')
+      point_1 = user_1.points.create
+      point_2 = user_1.points.create
+      point_3 = user_1.points.create
+      user_1.redeem_points(2)
+      expected_1 = 1
+      expected_2 = 3
 
-      expect(page).to have_content("Points: #{expected}")
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+      visit user_path(user_1)
+
+      expect(page).to have_content("Current Points: #{expected_1}")
+      expect(page).to have_content("Total Points Earned: #{expected_2}")
+    end
+    it "can see user's spent points on it's home page" do
+      user_1 = User.create(name:'bill', email:'anemail', password:'password')
+      point_1 = user_1.points.create
+      point_2 = user_1.points.create
+      point_3 = user_1.points.create
+      user_1.redeem_points(2)
+      expected_1 = 1
+      expected_2 = 2
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+      visit user_path(user_1)
+
+      expect(page).to have_content("Current Points: #{expected_1}")
+      expect(page).to have_content("Points Spent: #{expected_2}")
     end
     it "can see user's badges on it's home page" do
       user_1 = User.create(name:'bill', email:'anemail', password:'password')

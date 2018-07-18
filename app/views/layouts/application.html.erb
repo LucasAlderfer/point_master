@@ -21,8 +21,16 @@
         <% unless current_user.nil? %>
           <li><%= link_to "My Profile", user_path(current_user), method: :get %></li>
         <% end %>
-        <li><%= link_to "Login", login_path, method: :get %></li>
-        <li><%= link_to "Logout", logout_path, method: :delete %></li>
+        <li>
+          <% if current_user.nil? %>
+            <%= link_to "Login", login_path, method: :get %>
+          <% end %>
+        </li>
+        <li>
+          <% unless current_user.nil? %>
+            <%= link_to "Logout", logout_path, method: :delete %>
+          <% end %>
+        </li>
       </ul>
     </nav>
     <%= yield %>

@@ -11,4 +11,9 @@ class Admin::ManagementController < Admin::BaseController
     redirect_to admin_management_index_path
   end
 
+  def remove_points
+    removing_user = User.find(params[:edit_user_id])
+    removing_user.delete_points(params[:remove_points].to_i)
+    redirect_to admin_management_index_path
+  end
 end

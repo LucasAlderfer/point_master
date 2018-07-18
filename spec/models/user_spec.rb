@@ -54,7 +54,7 @@ describe User do
     end
   end
   describe 'instance methods' do
-    it 'can count its points' do
+    it 'can count its active points' do
       user_1 = User.create!(name:"bill", email:'anemail', password:'password')
       point_1 = user_1.points.create
       point_2 = user_1.points.create
@@ -62,6 +62,40 @@ describe User do
       expected = user_1.points.count
 
       expect(user_1.point_count).to eq expected
+    end
+    it 'can count its total points' do
+      user_1 = User.create!(name:"bill", email:'anemail', password:'password')
+      point_1 = user_1.points.create
+      point_2 = user_1.points.create
+      point_3 = user_1.points.create
+      user_1.redeem_points(2)
+      expected = user_1.points.count
+
+      expect(user_1.total_point_count).to eq expected
+    end
+    it 'can count its spent points' do
+      user_1 = User.create!(name:"bill", email:'anemail', password:'password')
+      point_1 = user_1.points.create
+      point_2 = user_1.points.create
+      point_3 = user_1.points.create
+      user_1.redeem_points(2)
+      expected = user_1.points.where(active:false).count
+
+      expect(user_1.spent_points).to eq expected
+    end
+    it 'can have its points deleted' do
+      user_1 = User.create!(name:"bill", email:'anemail', password:'password')
+      point_1 = user_1.points.create
+      point_2 = user_1.points.create
+      point_3 = user_1.points.create
+      expected_1 = 3
+      expected_2 = 1
+
+      expect(user_1.total_point_count).to eq 3
+
+      user_1.delete_points(2)
+
+      expect(user_1.total_point_count).to eq 1
     end
     it 'can display its badges' do
       user_1 = User.create!(name:"bill", email:'anemail', password:'password')
@@ -72,6 +106,18 @@ describe User do
       expected = "tester, spender"
 
       expect(user_1.badge_display).to eq expected
+    end
+    it 'can redeem its points' do
+      user_1 = User.create!(name:"bill", email:'anemail', password:'password')
+      point_1 = user_1.points.create
+      point_2 = user_1.points.create
+      point_3 = user_1.points.create
+      badge_2 = Badge.create(title:'spender', value: 2)
+      expected = (user_1.point_count - badge_2.value)
+
+      user_1.redeem_points(badge_2.value)
+
+      expect(user_1.point_count).to eq(expected)
     end
   end
 end

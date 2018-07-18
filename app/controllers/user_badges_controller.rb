@@ -18,6 +18,7 @@ class UserBadgesController < ApplicationController
       flash[:notice] = "You do not have enough points to buy that badge!"
       redirect_to badge_store_path
     else
+      user.redeem_points(badge.value)
       user.user_badges.create(badge:badge)
       flash[:notice] = "#{badge.title} Badge Added!"
       redirect_to user_path(user)

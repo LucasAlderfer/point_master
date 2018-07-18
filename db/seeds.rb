@@ -13,4 +13,4 @@ point_3 = user_2.points.create
 user_3 = User.create!(name:"james", email:'kndkj', password:'password')
 admin = User.create(name:'billy', email:'test', password:'password', role: 1)
 badge_1 = Badge.create(title:'tester')
-badge_2 = Badge.create(title:'veteran')
+badge_2 = Badge.create(title:'veteran', value: 5)

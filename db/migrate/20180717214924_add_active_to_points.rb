@@ -1,0 +1,5 @@
+class AddActiveToPoints < ActiveRecord::Migration[5.1]
+  def change
+    add_column :points, :active, :boolean, default: true
+  end
+end

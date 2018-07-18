@@ -10,16 +10,15 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
-  # get '/users/:id/add_point' => 'admins#add_point'
 
   namespace :admin do
     resources :management, only: [:index]
   end
 
   get '/users/:id/add_point' => 'admin/management#add_point'
+  post '/remove_points' => 'admin/management#remove_points'
 
   resources :badges, only: [:new, :create, :index]
   get '/badge-store' => 'badges#index'
   post '/buy-badge' => 'user_badges#buy'
-
 end

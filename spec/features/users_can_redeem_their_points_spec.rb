@@ -33,12 +33,14 @@ describe 'visiting /badge-store' do
       badge_1 = Badge.create(title:'tester')
       user_1.user_badges.create(badge: badge_1)
       badge_2 = Badge.create(title:'big_roller', value: 5)
+      expected_1 = user_1.point_count
+      expected_2 = (user_1.point_count - badge_2.value)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
 
       visit '/badge-store'
 
-      expect(page).to have_content "Current Points: #{user_1.point_count}"
+      expect(page).to have_content "Current Points: #{expected_1}"
 
       within "#badge-#{badge_2.title}" do
         click_button "Buy Badge"
@@ -47,6 +49,7 @@ describe 'visiting /badge-store' do
       expect(current_path).to eq user_path(user_1)
       expect(page).to have_content "#{badge_2.title} Badge Added!"
       expect(page).to have_content "Badges: #{user_1.badge_display}"
+      expect(page).to have_content "Points: #{expected_2}"
     end
   end
 end

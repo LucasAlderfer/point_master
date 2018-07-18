@@ -9,16 +9,7 @@ context "as an admin" do
     expected_1 = 2
     expected_2 = 3
 
-    visit users_path
-
-    click_link "Login"
-
-    fill_in :email, with: 'an@email'
-    fill_in :password, with: 'password_2'
-
-    within '#login-form' do
-      click_button "Login"
-    end
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
     visit admin_management_index_path
 
@@ -42,16 +33,7 @@ context "as an admin" do
     user_3 = User.create!(name:"james", email:'kndkj', password:'password')
     admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
 
-    visit users_path
-
-    click_link "Login"
-
-    fill_in :email, with: 'an@email'
-    fill_in :password, with: 'password_2'
-
-    within '#login-form' do
-      click_button "Login"
-    end
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
 
     visit admin_management_index_path
 
@@ -70,5 +52,31 @@ context "as an admin" do
       expect(page).to have_content("Email: #{user_3.email}")
       expect(page).to have_content("Point Count: #{user_3.point_count}")
     end
+  end
+  it "can delete a user's points" do
+    user_1 = User.create!(name:"bill", email:'anemail', password:'password')
+    point_1 = user_1.points.create
+    point_2 = user_1.points.create
+    point_3 = user_1.points.create
+    point_4 = user_1.points.create
+    point_5 = user_1.points.create
+    admin = User.create(name:'billy', email:'an@email', password:'password_2', role: 1)
+    expected_1 = 3
+    expected_2 = 1
+    user_1.redeem_points(2)
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+
+    visit admin_management_index_path
+
+    within "#user-id-#{user_1.id}" do
+      expect(page).to have_content("Point Count: #{expected_1}")
+      fill_in :remove_points, with: 2
+      click_button "Remove Points"
+    end
+
+    expect(user_1.total_point_count).to eq 3
+    expect(user_1.point_count).to eq 1
+    expect(user_1.spent_points).to eq 2
   end
 end

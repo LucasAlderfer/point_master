@@ -16,6 +16,12 @@
     <div>
       <p>Point Count: <%= user.point_count %></p>
       <%= button_to "Add Point", "/users/#{user.id}/add_point", method: :get %>
+      <%= form_tag remove_points_path do %>
+        <%= label_tag :remove_points %>
+        <%= number_field_tag :remove_points %>
+        <%= hidden_field_tag :edit_user_id, user.id %>
+        <%= submit_tag "Remove Points" %>
+      <% end %>
     </div>
     <div>
       <p>
