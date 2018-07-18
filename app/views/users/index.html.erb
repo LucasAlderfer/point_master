@@ -1,8 +1,20 @@
+<% if current_user.nil? %>
+  <main class="user-index">
+    <p>Click on New User to register, or Login to log into an existing account!</p>
 
-<main class="user-index">
-  <p>Click on New User to register, or Login to log into an existing account!</p>
-
-  <div class="registration-content">
-    <%= button_to "New User", new_user_path, method: :get %>
-  </div>
-</main>
+    <div class="registration-content">
+      <%= button_to "New User", new_user_path, method: :get %>
+    </div>
+  </main>
+<% else %>
+  <main class="all-users">
+    <h2>All Users!</h2>
+    <% @users.each do |user| %>
+    <ul class="user">
+      <li>Name: <%= user.name %></li>
+      <li class='user-badges'>Badges: <%= user.badge_display %></li>
+      <li>Point Count: <%= user.point_count %></li>
+    </ul>
+    <% end %>
+  </main>
+<% end %>
